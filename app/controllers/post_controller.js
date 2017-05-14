@@ -2,12 +2,13 @@ import Post from '../models/post_model';
 
 const cleanPosts = (posts) => {
   return posts.map((post) => {
-    return { id: post._id, title: post.title, tags: post.tags.toString(), cover_url: post.cover_url };
+    return { author: post.author, id: post._id, title: post.title, tags: post.tags.toString(), cover_url: post.cover_url };
   });
 };
 
 export const createPost = (req, res) => {
   const post = new Post();
+  post.author = req.user._id;
   post.title = req.body.title;
   post.tags = req.body.tags.split(' ');
   post.content = req.body.content;
@@ -34,11 +35,9 @@ export const getPosts = (req, res) => {
 
 export const getPost = (req, res) => {
   Post.findById(req.params.id)
-  .then((post) => {
-    res.json({ title: post.title, tags: post.tags.join(' '), content: post.content, cover_url: post.cover_url, comments: post.comments });
-  })
-  .catch((error) => {
-    res.json({ error });
+  .populate('author', 'username')
+  .exec((err, post) => {
+    res.json({ author: post.author.username, title: post.title, tags: post.tags.join(' '), content: post.content, cover_url: post.cover_url, comments: post.comments });
   });
 };
 
