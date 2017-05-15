@@ -34,7 +34,7 @@ export const signup = (req, res, next) => {
   User.findOne({ email })
   .then((user) => {
     if (user) {
-      return res.send('This user already exists');
+      return res.status(422).send('This user already exists');
     }
 
     const newUser = new User();
