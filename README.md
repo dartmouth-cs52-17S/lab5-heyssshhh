@@ -21,4 +21,5 @@
 ### Extra credits
 * profile page: displays welcome message for the user, username, and email
 * Error page: applies to errors such as not inputting all fields when signing up, accessing profile page when not logged. Will be redirected to see an error.
-* Only authenticated users can have their edits and comments saved
+* Only authenticated users can edit and comment
+* Only the author off a post can edit that post
