@@ -35,9 +35,9 @@ export const getPosts = (req, res) => {
 
 export const getPost = (req, res) => {
   Post.findById(req.params.id)
-  .populate('author', 'username')
+  .populate('author')
   .exec((err, post) => {
-    res.json({ author: post.author.username, title: post.title, tags: post.tags.join(' '), content: post.content, cover_url: post.cover_url, comments: post.comments });
+    res.json({ authorID: post.author._id, author: post.author.username, title: post.title, tags: post.tags.join(' '), content: post.content, cover_url: post.cover_url, comments: post.comments });
   });
 };
 

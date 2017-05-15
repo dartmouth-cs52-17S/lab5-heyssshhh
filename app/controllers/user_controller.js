@@ -56,5 +56,5 @@ export const signup = (req, res, next) => {
 };
 
 export const getUser = (req, res) => {
-  res.json({ username: req.user.username, email: req.user.email });
+  res.json({ username: req.user.username, email: req.user.email, id: req.user._id });
 };
